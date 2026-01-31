@@ -1,0 +1,61 @@
+def parse_input(user_input):
+    cmd, *args = user_input.split()
+    cmd = cmd.strip().lower()
+    return cmd, *args
+
+def add_contact(args, contacts):
+        user_input = input("Enter name and phone number: ")
+        name, phone = user_input.split()
+        user_input = args
+        contacts[name] = phone
+        return "Contact added."
+
+def change_contact(args, contacts):
+            user_input = input("Enter name and new phone number: ")
+            name, new_phone = user_input.split()
+            user_input = args
+            if name not in contacts:
+                 return f"Contact {name} not found."
+            contacts[name] = new_phone 
+            return "Contact updated."
+
+def show_phone(args, contacts):
+     if len(args) != 1:
+          return "Please provide a name."
+     name = args[0]
+     return contacts.get(name, "contact not found.")
+
+def show_all(args, contacts):
+     if not contacts:
+          return print("Not contacts")
+     else:
+          for name, phone in contacts.items():
+               print(f"{name}: {phone}")
+
+def main():
+    contacts = {}
+    print("Welcome to the assistant bot!")
+    while True:
+        user_input = input("Enter a command: ")
+        command, *args = parse_input(user_input)
+
+        if command in ["close", "exit"]:
+            print("Good bye!")
+            break
+        elif command == "hello":
+            print("How can I help you?")
+        elif command == "add":
+            print(add_contact(args, contacts))
+        elif command == "change":
+             print(change_contact(args, contacts))
+        elif command == "phone":
+             print(show_phone(args, contacts))
+        elif command == "all":
+             print(show_all(args, contacts))
+        else:
+            print("Invalid command.")
+
+
+
+if __name__ == "__main__":
+    main()
