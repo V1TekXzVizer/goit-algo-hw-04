@@ -13,7 +13,7 @@ def get_cats_info(path):
                     parts = line.strip().split(',')
                     cat_id = parts[0].strip()
                     name = parts[1].strip()
-                    age = int(parts[2].strip())
+                    age = parts[2].strip()
                     cat_info = {"id": cat_id, "name": name, "age": age}
                     cats.append(cat_info)
 

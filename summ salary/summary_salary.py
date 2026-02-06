@@ -8,27 +8,26 @@ def total_salary(path):
             salaries = []
             for line in file:
                 try:
-                    salary = int(line.strip().split(',')[-1].strip())
-                    salaries.append(salary)
+                    parts = line.strip().split(',')
+                    if len(parts) >= 2:
+                        salary = float(parts[-1].strip())
+                        salaries.append(salary)
                 except (ValueError, IndexError):
                     continue 
             
             if not salaries:
-                return 0, 0, 0 
+                return 0, 0  
             total = sum(salaries)
-            count = len(salaries)
-            average = total / count if count > 0 else 0
-            return total, count, average
+            average = total / len(salaries)
+            return total, average  
     except FileNotFoundError:
-        print("Файл не найден.")
+        print("Файл не знайдено.")
+        return None
          
 path = current_dir / "total_salary.txt"
 result = total_salary(path)
-if isinstance(result, tuple):
-    total, _, average = result
-    print(f"Общая сумма зарплат: {total} а средняя зарплата: {average:.2f}")
 
-else:
-    print(result)
-    
+if result is not None:
+    total, average = result
+    print(f"Загальна сума зарплат: {total}, Середня зарплата: {average:.2f}")
 

@@ -4,33 +4,35 @@ def parse_input(user_input):
     return cmd, *args
 
 def add_contact(args, contacts):
-        user_input = input("Enter name and phone number: ")
-        name, phone = user_input.split()
-        user_input = args
-        contacts[name] = phone
-        return "Contact added."
+    if len(args) != 2:
+        return "Please provide both name and phone number."
+    name, phone = args
+    if name in contacts:
+        return "Contact already exists."
+    contacts[name] = phone
+    return "Contact added."
 
 def change_contact(args, contacts):
-            user_input = input("Enter name and new phone number: ")
-            name, new_phone = user_input.split()
-            user_input = args
-            if name not in contacts:
-                 return f"Contact {name} not found."
-            contacts[name] = new_phone 
-            return "Contact updated."
+    if len(args) != 2:
+        return "Please provide both name and new phone number."
+    name, new_phone = args
+    if name not in contacts:
+        return f"Contact {name} not found."
+    contacts[name] = new_phone 
+    return "Contact updated."
 
 def show_phone(args, contacts):
-     if len(args) != 1:
-          return "Please provide a name."
-     name = args[0]
-     return contacts.get(name, "contact not found.")
+    if len(args) != 1:
+        return "Please provide a name."
+    name = args[0]
+    return contacts.get(name, "contact not found.")
 
 def show_all(args, contacts):
-     if not contacts:
-          return print("Not contacts")
-     else:
-          for name, phone in contacts.items():
-               print(f"{name}: {phone}")
+    if not contacts:
+        return print("Not contacts")
+    else:
+        for name, phone in contacts.items():
+            print(f"{name}: {phone}")
 
 def main():
     contacts = {}
