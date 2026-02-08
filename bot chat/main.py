@@ -29,10 +29,11 @@ def show_phone(args, contacts):
 
 def show_all(args, contacts):
     if not contacts:
-        return print("Not contacts")
-    else:
-        for name, phone in contacts.items():
-            print(f"{name}: {phone}")
+        return "No contacts."
+    result = ""
+    for name, phone in contacts.items():
+        result += f"{name}: {phone}\n"
+    return result.strip()
 
 def main():
     contacts = {}
